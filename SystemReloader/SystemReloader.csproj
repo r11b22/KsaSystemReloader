@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.4.2" />
+    <PackageReference Include="StarMap.API" Version="0.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Brutal.Core.Logging">
+      <HintPath>Import\Brutal.Core.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Brutal.Core.Numerics">
+      <HintPath>Import\Brutal.Core.Numerics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Brutal.ImGui">
+      <HintPath>Import\Brutal.ImGui.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Brutal.ImGui.Abstractions">
+      <HintPath>Import\Brutal.ImGui.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Brutal.ImGui.Extensions">
+      <HintPath>Import\Brutal.ImGui.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="KSA">
+      <HintPath>Import\KSA.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="mod.toml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
