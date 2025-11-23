@@ -1,13 +1,21 @@
 ﻿using Brutal.ImGuiApi;
-using StarMap.API;
 using KSA;
+using StarMap.API;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace SystemReloader
 {
+
+
     [StarMapMod]
     public class SystemReloader
     {
+        private class SystemData
+        {
+            public string name { get; set; }
+        }
+
         [StarMapAfterGui]
         public void guiInit(double dt)
         {
@@ -15,6 +23,14 @@ namespace SystemReloader
             if(ImGui.Button("Reload System"))
             {
                 Console.WriteLine("Reloading game");
+
+                SystemData systemData = new SystemData { name = "test" };
+
+                // write to config.json
+                string jsonString = JsonSerializer.Serialize(systemData, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText("C:\\Users\\joost\\Documents\\config.json", jsonString);
+                Console.WriteLine("JSON config saved!");
+
 
                 string exePath = Process.GetCurrentProcess().MainModule.FileName;
 
