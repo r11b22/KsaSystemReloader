@@ -11,9 +11,29 @@ namespace SystemReloader
     [StarMapMod]
     public class SystemReloader
     {
-        private class SystemData
+        private SystemWriter? m_systemWriter;
+        private SystemReader? m_systemReader;
+
+
+        [StarMapBeforeMain]
+        public void immediateLoad()
         {
-            public string name { get; set; }
+            m_systemWriter = new SystemWriter("system_reload_temp.json");
+
+            
+        }
+
+        [StarMapImmediateLoad]
+        public void test(Mod mod)
+        {
+            m_systemReader = new SystemReader("system_reload_temp.json");
+
+            
+
+            if (m_systemReader.wasReloaded())
+            {
+                 GameSettings.Current.System.ConfigOnStart = false;
+            }
         }
 
         [StarMapAfterGui]
@@ -23,16 +43,16 @@ namespace SystemReloader
             if(ImGui.Button("Reload System"))
             {
                 Console.WriteLine("Reloading game");
-
-                SystemData systemData = new SystemData { name = "test" };
-
-                // write to config.json
-                string jsonString = JsonSerializer.Serialize(systemData, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText("C:\\Users\\joost\\Documents\\config.json", jsonString);
-                Console.WriteLine("JSON config saved!");
-
+                if(m_systemWriter == null)
+                {
+                    throw new NullReferenceException("SystemWriter is null! This is an error contact the mod author to fix the issue!");
+                }
+                m_systemWriter.writeSystem(Universe.CurrentSystem.Id);
 
                 string exePath = Process.GetCurrentProcess().MainModule.FileName;
+
+
+
 
                 var startInfo = new ProcessStartInfo
                 {
